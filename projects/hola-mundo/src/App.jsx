@@ -28,9 +28,7 @@ export function App () {
     return(
         <section className='App'>
             {
-                users.map(user =>{
-                    const { userName, name, isFollowing } = user
-                    return (
+                users.map(({ userName, name, isFollowing }) =>(
                         <TwitterFollowCard
                             userName={userName}
                             initialIsFollowing={isFollowing}
@@ -38,7 +36,7 @@ export function App () {
                             {name}
                         </TwitterFollowCard>
                     )
-                })
+                )
             }
         </section>
     );

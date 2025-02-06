@@ -1,3 +1,4 @@
+/* twitter follow Card component */
 .tw-followCard{
     display: flex;
     justify-content: space-between;
@@ -7,47 +8,64 @@
     padding: 1rem;
 }
 .tw-followCard:hover{
-    background-color: #333;
+    background-color: #111;
     transition: all .3s ease-in;
 }
-
-
 .tw-followCard-header{
     display: flex;
     align-items: center;
     gap: 4px;
 }
 
+/* info and image */
 .tw-followCard-info{
     display: flex;
     flex-direction: column;
 }
-
 .tw-followCard-infoUserName{
     opacity: .6;
 }
-
 .tw-followCard-img{
     width: 48px;
     height: 48px;
     border-radius: 1000px;
 }
 
+
+/* button */
 .tw-followCard-btn{
     cursor: pointer;
     margin-left: 16px;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 999px;
     padding: 6px 16px;
     font-weight: bold;
-    transition: .3s ease background-color;
+    transition: .3s ease all;
 }
 .tw-followCard-btn:hover{
-    background-color: #09f;
+    background-color: #ddd;
+}
+.tw-followCard-btnText{
+    display: block;
 }
 .tw-followCard-btn.is-following{
-    border: 1px solid red;
+    background-color: transparent;
+    color: white;
+    width: 140px;
 }
 .tw-followCard-btn.is-following:hover{
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.295);
+    color: red;
+    border-color: red;
+}
+
+.tw-followCard-btn.is-following:hover .tw-followCard-btnText{
+    display: none;
+}
+.tw-followCard-btn.is-following:hover .tw-followCard-stopFollow{
+    display: block;
+}
+
+.tw-followCard-stopFollow{
+    display: none;
 }

@@ -29,14 +29,14 @@ export function App () {
         <section className='App'>
             {
                 users.map(({ userName, name, isFollowing }) =>(
-                        <TwitterFollowCard
-                            userName={userName}
-                            initialIsFollowing={isFollowing}
-                        >
-                            {name}
-                        </TwitterFollowCard>
-                    )
-                )
+                    <TwitterFollowCard
+                        key={userName}
+                        userName={userName}
+                        initialIsFollowing={isFollowing}
+                    >
+                        {name}
+                    </TwitterFollowCard>
+                ))
             }
         </section>
     );

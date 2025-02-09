@@ -5,6 +5,7 @@ const TURNS = {
   O: 'o'
 }
 
+// Square component
 const Square = ({children, isSelected, updateBoard, index}) => {
   const className = `square ${isSelected ? 'is-selected' : ''}`
 
@@ -20,20 +21,53 @@ const Square = ({children, isSelected, updateBoard, index}) => {
 }
 
 function App() {
+  // board 
   const [board, setBoard] = useState(Array(9).fill(null))
   
+  // turn
   const [turn, setTurn] = useState(TURNS.O)
 
-  const updateBoard = (index) => {
+  // win condition
+  const winCondition = [
+    [0,1,2], [3,4,5], [6,7,8], // horizontal
+    [0,3,6], [1,4,7], [2,5,8], // vertical
+    [0,4,8], [2,4,6] // diagonal
+  ]
 
-    if (board[index] !== null) {
-      return
+  // winner
+  const [winner, setWinner] = useState(null) // null == no winner yet and false == draw
+
+  const checkWin = (boardToCheck) => {
+    for (const condition of winCondition) {
+      const [a,b,c] = condition
+      if (boardToCheck[a] 
+        && boardToCheck[a] === boardToCheck[b] 
+        && boardToCheck[a] === boardToCheck[c])  return boardToCheck[a]
     }
+    return null
+  }
+
+
+  const updateBoard = (index) => {
+    // check if the square is already filled
+    if (board[index] !== null || winner) return
+  
+    // change turn
     setTurn( turn === TURNS.X ? TURNS.O : TURNS.X )
 
+    // uodate board
     const newBoard = [...board]
     newBoard[index] = turn
     setBoard(newBoard)
+
+    // check if there's a winner
+    const newWinner = checkWin(newBoard)
+
+    // set winner
+    if (newWinner) {
+      setWinner(newWinner)
+      alert(`Player ${newWinner} wins!`)
+    }
   }
   
   return (

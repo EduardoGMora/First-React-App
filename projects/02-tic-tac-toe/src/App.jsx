@@ -25,7 +25,7 @@ function App() {
   const [board, setBoard] = useState(Array(9).fill(null))
   
   // turn
-  const [turn, setTurn] = useState(TURNS.O)
+  const [turn, setTurn] = useState(TURNS.X)
 
   // win condition
   const winCondition = [
@@ -47,6 +47,11 @@ function App() {
     return null
   }
 
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setTurn(TURNS.X)
+    setWinner(null)
+  }
 
   const updateBoard = (index) => {
     // check if the square is already filled
@@ -66,7 +71,6 @@ function App() {
     // set winner
     if (newWinner) {
       setWinner(newWinner)
-      alert(`Player ${newWinner} wins!`)
     }
   }
   
@@ -96,6 +100,32 @@ function App() {
           {TURNS.O}
         </Square>
       </section>
+
+      <button onClick={resetGame}>Restart</button>
+
+      {
+        winner !== null && (
+          <section className="winner">
+            <div className="text">
+              <h2>
+                {winner === false 
+                  ? 'Draw' 
+                  : `Winner:`}
+              </h2>
+
+              <header className="win">
+                {
+                  winner && <Square>{winner}</Square>
+                }
+              </header>
+
+              <footer>
+                <button onClick={resetGame}>Restart</button>
+              </footer>
+            </div>
+          </section>
+        )
+      }
     </main>
   )
 }

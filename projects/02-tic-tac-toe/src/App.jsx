@@ -53,6 +53,10 @@ function App() {
     setWinner(null)
   }
 
+  const isDraw = (Board) => {
+    return Board.every(square => square !== null)
+  }
+
   const updateBoard = (index) => {
     // check if the square is already filled
     if (board[index] !== null || winner) return
@@ -71,6 +75,8 @@ function App() {
     // set winner
     if (newWinner) {
       setWinner(newWinner)
+    } else if (isDraw(newBoard)) {
+      setWinner(false)
     }
   }
   

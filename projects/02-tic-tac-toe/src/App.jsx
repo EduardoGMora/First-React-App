@@ -9,10 +9,16 @@ import { WinnerModal } from './components/WinnerModal' // import WinnerModal com
 
 function App() {
   // board 
-  const [board, setBoard] = useState(Array(9).fill(null))
+  const [board, setBoard] = useState( () => {
+    const savedBoard = window.localStorage.getItem('board')
+    return savedBoard ? JSON.parse(savedBoard) : Array(9).fill(null)
+  })
   
   // turn
-  const [turn, setTurn] = useState(TURNS.X)
+  const [turn, setTurn] = useState(() => {
+    const savedTurn = window.localStorage.getItem('turn')
+    return savedTurn ? savedTurn : TURNS.X
+  })
 
   // winner
   const [winner, setWinner] = useState(null) // null == no winner yet and false == draw
@@ -20,21 +26,28 @@ function App() {
   // reset game
   const resetGame = () => {
     setBoard(Array(9).fill(null))
-    setTurn(TURNS.X)
+    const savedTurn = window.localStorage.getItem('turn')
+    setTurn(savedTurn === TURNS.X ? TURNS.O : TURNS.X)
+    window.localStorage.removeItem('board')
+    window.localStorage.removeItem('turn')
     setWinner(null)
   }
 
   const updateBoard = (index) => {
     // check if the square is already filled
     if (board[index] !== null || winner) return
-  
-    // change turn
-    setTurn( turn === TURNS.X ? TURNS.O : TURNS.X )
-
+      
     // uodate board
     const newBoard = [...board]
     newBoard[index] = turn
     setBoard(newBoard)
+
+    // change turn
+    setTurn( turn === TURNS.X ? TURNS.O : TURNS.X )
+
+    // save data to local storage
+    window.localStorage.setItem('board', JSON.stringify(newBoard))
+    window.localStorage.setItem('turn', turn)
 
     // check if there's a winner
     const newWinner = checkWin(newBoard)

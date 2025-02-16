@@ -2,8 +2,9 @@ import { useState } from "react"
 import confetti from 'canvas-confetti'
 
 import { Square } from './components/Square'  // import Square component
-import { TURNS } from './constants' // import TURNS
+import { TURNS, WinnerConditions } from './constants' // import TURNS
 import { checkWin } from './logic/board' // import checkWin function
+import { WinnerModal } from './components/WinnerModal' // import WinnerModal component
 
 function App() {
   // board 
@@ -84,29 +85,7 @@ function App() {
 
       <button onClick={resetGame}>Restart</button>
 
-      {
-        winner !== null && (
-          <section className="winner">
-            <div className="text">
-              <h2>
-                {winner === false 
-                  ? 'Draw' 
-                  : `Winner:`}
-              </h2>
-
-              <header className="win">
-                {
-                  winner && <Square>{winner}</Square>
-                }
-              </header>
-
-              <footer>
-                <button onClick={resetGame}>Restart</button>
-              </footer>
-            </div>
-          </section>
-        )
-      }
+      <WinnerModal resetGame={resetGame} winner={winner}/>
     </main>
   )
 }

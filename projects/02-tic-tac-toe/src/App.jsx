@@ -1,24 +1,9 @@
 import { useState } from "react"
+import confetti from 'canvas-confetti'
 
-const TURNS = {
-  X: 'x',
-  O: 'o'
-}
-
-// Square component
-const Square = ({children, isSelected, updateBoard, index}) => {
-  const className = `square ${isSelected ? 'is-selected' : ''}`
-
-  const handleClick = () => {
-    updateBoard(index);
-  }
-
-  return(
-    <div className={className} onClick={ handleClick }>
-      {children}
-    </div>
-  );
-}
+import { Square } from './components/Square'  // import Square component
+import { TURNS } from './constants' // import TURNS
+import { checkWin } from './logic/board' // import checkWin function
 
 function App() {
   // board 
@@ -27,32 +12,17 @@ function App() {
   // turn
   const [turn, setTurn] = useState(TURNS.X)
 
-  // win condition
-  const winCondition = [
-    [0,1,2], [3,4,5], [6,7,8], // horizontal
-    [0,3,6], [1,4,7], [2,5,8], // vertical
-    [0,4,8], [2,4,6] // diagonal
-  ]
-
   // winner
   const [winner, setWinner] = useState(null) // null == no winner yet and false == draw
 
-  const checkWin = (boardToCheck) => {
-    for (const condition of winCondition) {
-      const [a,b,c] = condition
-      if (boardToCheck[a] 
-        && boardToCheck[a] === boardToCheck[b] 
-        && boardToCheck[a] === boardToCheck[c])  return boardToCheck[a]
-    }
-    return null
-  }
-
+  // reset game
   const resetGame = () => {
     setBoard(Array(9).fill(null))
     setTurn(TURNS.X)
     setWinner(null)
   }
 
+  // check if it's a draw
   const isDraw = (Board) => {
     return Board.every(square => square !== null)
   }
@@ -74,6 +44,11 @@ function App() {
 
     // set winner
     if (newWinner) {
+      confetti({
+        particleCount: 100,
+        spread: 100,
+        origin: { y: 0.6 }
+      })
       setWinner(newWinner)
     } else if (isDraw(newBoard)) {
       setWinner(false)

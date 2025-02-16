@@ -1,4 +1,4 @@
-import { WinnerConditions } from "../constants"
+import { WinnerConditions } from "../logic/constants.js"
 
 // check if there is a winner
 export const checkWin = (boardToCheck) => {

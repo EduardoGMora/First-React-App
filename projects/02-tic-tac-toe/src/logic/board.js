@@ -10,3 +10,8 @@ export const checkWin = (boardToCheck) => {
     }
     return null
 }
+
+  // check if it's a draw
+export const isDraw = (Board) => {
+    return Board.every(square => square !== null)
+}

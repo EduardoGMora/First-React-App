@@ -2,9 +2,10 @@ import { useState } from "react"
 import confetti from 'canvas-confetti'
 
 import { Square } from './components/Square'  // import Square component
-import { TURNS, WinnerConditions } from './constants' // import TURNS
-import { checkWin } from './logic/board' // import checkWin function
+import { TURNS } from './constants' // import TURNS
+import { checkWin, isDraw } from './logic/board' // import checkWin function
 import { WinnerModal } from './components/WinnerModal' // import WinnerModal component
+
 
 function App() {
   // board 
@@ -21,11 +22,6 @@ function App() {
     setBoard(Array(9).fill(null))
     setTurn(TURNS.X)
     setWinner(null)
-  }
-
-  // check if it's a draw
-  const isDraw = (Board) => {
-    return Board.every(square => square !== null)
   }
 
   const updateBoard = (index) => {

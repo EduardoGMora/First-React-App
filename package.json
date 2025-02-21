@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/EduardoGMora/First-React-App/issues"
   },
-  "homepage": "https://github.com/EduardoGMora/First-React-App#readme"
+  "homepage": "https://github.com/EduardoGMora/First-React-App#readme",
+  "devDependencies": {
+    "standard": "^17.1.2"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
 }
